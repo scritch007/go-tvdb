@@ -61,7 +61,7 @@ func NewGetSearchSeriesOK() *GetSearchSeriesOK {
 An array of results that match the provided query.
 */
 type GetSearchSeriesOK struct {
-	Payload *models.SeriesSearchData
+	Payload *models.SeriesSearchDataResponse
 }
 
 func (o *GetSearchSeriesOK) Error() string {
@@ -70,7 +70,7 @@ func (o *GetSearchSeriesOK) Error() string {
 
 func (o *GetSearchSeriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.SeriesSearchData)
+	o.Payload = new(models.SeriesSearchDataResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
