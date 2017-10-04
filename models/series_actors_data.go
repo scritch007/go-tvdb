@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -13,80 +15,34 @@ import (
 )
 
 // SeriesActorsData series actors data
-// swagger:model SeriesActorsData
+// swagger:model seriesActorsData
 
-type SeriesActorsData struct {
-
-	// id
-	ID int64 `json:"id,omitempty"`
-
-	// image
-	Image string `json:"image,omitempty"`
-
-	// image added
-	ImageAdded string `json:"imageAdded,omitempty"`
-
-	// image author
-	ImageAuthor int64 `json:"imageAuthor,omitempty"`
-
-	// last updated
-	LastUpdated string `json:"lastUpdated,omitempty"`
-
-	// name
-	Name string `json:"name,omitempty"`
-
-	// role
-	Role string `json:"role,omitempty"`
-
-	// series Id
-	SeriesID int64 `json:"seriesId,omitempty"`
-
-	// sort order
-	SortOrder int64 `json:"sortOrder,omitempty"`
-}
-
-/* polymorph SeriesActorsData id false */
-
-/* polymorph SeriesActorsData image false */
-
-/* polymorph SeriesActorsData imageAdded false */
-
-/* polymorph SeriesActorsData imageAuthor false */
-
-/* polymorph SeriesActorsData lastUpdated false */
-
-/* polymorph SeriesActorsData name false */
-
-/* polymorph SeriesActorsData role false */
-
-/* polymorph SeriesActorsData seriesId false */
-
-/* polymorph SeriesActorsData sortOrder false */
+type SeriesActorsData []*SeriesActorsData
 
 // Validate validates this series actors data
-func (m *SeriesActorsData) Validate(formats strfmt.Registry) error {
+func (m SeriesActorsData) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	for i := 0; i < len(m); i++ {
+
+		if swag.IsZero(m[i]) { // not required
+			continue
+		}
+
+		if m[i] != nil {
+
+			if err := m[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName(strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *SeriesActorsData) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *SeriesActorsData) UnmarshalBinary(b []byte) error {
-	var res SeriesActorsData
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
 	return nil
 }

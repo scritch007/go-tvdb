@@ -6,10 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Series series
@@ -137,6 +140,11 @@ func (m *Series) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateStatus(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -156,6 +164,47 @@ func (m *Series) validateGenre(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Genre) { // not required
 		return nil
+	}
+
+	return nil
+}
+
+var seriesTypeStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Continuing","Ended"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		seriesTypeStatusPropEnum = append(seriesTypeStatusPropEnum, v)
+	}
+}
+
+const (
+	// SeriesStatusContinuing captures enum value "Continuing"
+	SeriesStatusContinuing string = "Continuing"
+	// SeriesStatusEnded captures enum value "Ended"
+	SeriesStatusEnded string = "Ended"
+)
+
+// prop value enum
+func (m *Series) validateStatusEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, seriesTypeStatusPropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *Series) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	return nil

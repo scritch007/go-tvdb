@@ -1534,7 +1534,11 @@
           "type": "integer"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Continuing",
+            "Ended"
+          ]
         },
         "zap2itId": {
           "type": "string"
