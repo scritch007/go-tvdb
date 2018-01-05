@@ -27,7 +27,7 @@ type BasicEpisode struct {
 	AiredSeason int64 `json:"airedSeason,omitempty"`
 
 	// dvd episode number
-	DvdEpisodeNumber int64 `json:"dvdEpisodeNumber,omitempty"`
+	DvdEpisodeNumber float64 `json:"dvdEpisodeNumber,omitempty"`
 
 	// dvd season
 	DvdSeason int64 `json:"dvdSeason,omitempty"`

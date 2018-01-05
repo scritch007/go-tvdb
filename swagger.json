@@ -1214,7 +1214,7 @@
           "type": "integer"
         },
         "dvdEpisodeNumber": {
-          "type": "integer"
+          "type": "number"
         },
         "dvdSeason": {
           "type": "integer"
@@ -1522,7 +1522,7 @@
           "type": "string"
         },
         "seriesId": {
-          "type": "integer"
+          "type": "string"
         },
         "seriesName": {
           "type": "string"

@@ -66,7 +66,7 @@ type Series struct {
 	Runtime string `json:"runtime,omitempty"`
 
 	// series Id
-	SeriesID int64 `json:"seriesId,omitempty"`
+	SeriesID string `json:"seriesId,omitempty"`
 
 	// series name
 	SeriesName string `json:"seriesName,omitempty"`
